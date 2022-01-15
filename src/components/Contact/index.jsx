@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 
 
 
-function Dialog(props) {
+function Contact(props) {
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
             backgroundColor: '#44b700',
@@ -91,4 +91,4 @@ function Dialog(props) {
     );
 }
 
-export default Dialog;
+export default Contact;
