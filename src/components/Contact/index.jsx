@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContact } from '../../redux/actions';
 
 
 
@@ -35,6 +37,15 @@ function Contact(props) {
         },
     }));
 
+    const contacts = useSelector(state => state.contacts.items)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+       dispatch(fetchContact())
+    }, [])
+
+    console.log(contacts);
 
     return (
         <div className='content-dialog'>
@@ -42,50 +53,34 @@ function Contact(props) {
                 <input type="search" placeholder='Поиск контакта'/>
             </div>
             <div className="dialog-contacts">
-                <div className="dialog-contacts__item contact">
-                    <div className="contact-icon">
-                        <StyledBadge
-                            overlap="circular"
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            variant="dot"
-                        >
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </StyledBadge>
-                    </div>
-                    <div className="contact-text">
-                        <div className="contact-text__name">
-                            <p>Кудузов Ахмад</p>
-                        </div>
-                        <div className="contact-text__message">
-                            <span>Приходите сегодня на урок</span>
-                        </div>
-                    </div>
-                    <div className="contact-time">
-                        <span>9:00</span>
-                    </div>
-                </div>
-                <div className="dialog-contacts__item contact">
-                    <div className="contact-icon">
-                        <StyledBadge
-                            overlap="circular"
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            variant="dot"
-                        >
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </StyledBadge>
-                    </div>
-                    <div className="contact-text">
-                        <div className="contact-text__name">
-                            <p>Кудузов Альви</p>
-                        </div>
-                        <div className="contact-text__message">
-                            <span>Не приходите сегодня на урок</span>
-                        </div>
-                    </div>
-                    <div className="contact-time">
-                        <span>9:00</span>
-                    </div>
-                </div>
+                {
+                    contacts.map((contact, key) => {
+                        return(
+                          <div className="dialog-contacts__item contact">
+                              <div className="contact-icon">
+                                  <StyledBadge
+                                    overlap="circular"
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                    variant={contact.online ? 'dot' : ' '}
+                                  >
+                                      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                  </StyledBadge>
+                              </div>
+                              <div className="contact-text">
+                                  <div className="contact-text__name">
+                                      <p>{contact.fullname}</p>
+                                  </div>
+                                  <div className="contact-text__message">
+                                      <span>{contact.lastMessage.content}</span>
+                                  </div>
+                              </div>
+                              <div className="contact-time">
+                                  <span>9:00</span>
+                              </div>
+                          </div>
+                        )
+                    })
+                }
             </div>
         </div>
     );
