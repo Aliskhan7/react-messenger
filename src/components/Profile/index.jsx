@@ -4,6 +4,7 @@ import Media from "../Media/Media";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 
 function Profile(props) {
+
     return (
         <div className='content-profile'>
             <div className="profile-container">

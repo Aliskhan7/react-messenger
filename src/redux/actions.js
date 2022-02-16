@@ -29,3 +29,22 @@ export const fetchContact = () => {
       })
   }
 }
+
+
+export const fetchMesseges = (myId, contactId) => {
+  return dispatch => {
+    dispatch({
+      type: 'MESSAGES_LOAD',
+      payload: contactId
+    })
+    fetch(`https://api.intocode.ru:8001/api/messages/${myId}/${contactId}`)
+      .then(response => response.json())
+      .then(json => {
+        dispatch({
+          type: 'MESSAGES_SUCCESS',
+          payload: json
+        })
+      })
+  }
+}
+

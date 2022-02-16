@@ -4,12 +4,11 @@ import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import MailIcon from "@mui/icons-material/Mail";
 import { useDispatch, useSelector } from 'react-redux';
-import application from '../../redux/ducks/application';
 import { fetchProfile } from '../../redux/actions';
 
 const ProfileInfo = () => {
   const profile = useSelector((state) => state.application.items)
-
+  const loading = useSelector(state => state.application.loading)
   const dispatch = useDispatch();
 
   useEffect(() =>{
@@ -20,8 +19,14 @@ const ProfileInfo = () => {
         <div className="profile-info">
             <Avatar className='profile-avatar' alt="Remy Sharp" src={profile.picture}  />
             <div className='profile-names'>
-                <h3 className='profile-name'> {profile.fullname} </h3>
-                <p className='profile-nick-name'>@{profile.username}</p>
+              {loading ?
+                <>
+                  <h3 className='profile-name'> {profile.fullname} </h3>
+                  <p className='profile-nick-name'>@{profile.username}</p>
+                </>
+                : <p>Loading</p>
+              }
+
             </div>
             <ul className='profile-icons-list'>
                 <li className='icons-list-item'><PhoneEnabledIcon/></li>
