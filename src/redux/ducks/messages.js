@@ -2,7 +2,6 @@ const initialState = {
     items: [],
     loading: false
 };
-
 export default function messages(state = initialState, action) {
     switch (action.type) {
         case 'MESSAGES_LOAD':

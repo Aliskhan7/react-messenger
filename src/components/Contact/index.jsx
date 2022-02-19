@@ -4,6 +4,7 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContact } from '../../redux/actions';
+import { useParams } from 'react-router-dom';
 
 
 function Contact(props) {
@@ -36,8 +37,14 @@ function Contact(props) {
         },
     }));
 
+    const _id = useParams().id;
     const contacts = useSelector(state => state.contacts.items)
     const loading = useSelector(state => state.contacts.loading)
+    const myId = useSelector((state) => state.application.items._id)
+
+    const messagClick = () =>{
+
+    }
 
     const dispatch = useDispatch()
 
@@ -53,11 +60,11 @@ function Contact(props) {
             {loading ?
               <p>Loading</p>
               :
-              <div className="dialog-contacts">
+              <div className="dialog-contacts" onClick={messagClick}>
                   {
                       contacts.map((contact, key) => {
                           return(
-                            <div className="dialog-contacts__item contact">
+                            <div key={key} className="dialog-contacts__item contact">
                                 <div className="contact-icon">
                                     <StyledBadge
                                       overlap="circular"

@@ -3,6 +3,7 @@ const initialState = {
     loading: false,
 };
 
+
 export default function application(state = initialState, action) {
     switch (action.type) {
         case 'PROFILE_LOAD':

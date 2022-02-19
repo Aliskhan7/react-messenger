@@ -10,21 +10,21 @@ import { useParams } from 'react-router-dom';
 
 function Messages(props) {
     const dispatch = useDispatch()
-    const opened = useParams().id;
+    const _id = useParams().id;
 
     const myId = useSelector((state) => state.application.items._id)
     const messages = useSelector(state => state.messages.items)
     const loading = useSelector(state => state.messages.loading)
 
-    console.log(opened);
+    // console.log(myId)
 
     useEffect(() => {
-        if(opened){
-            dispatch(fetchMesseges(myId, opened))
+        if(!_id){
+            dispatch(fetchMesseges(myId, _id))
         }
-    }, [dispatch, opened, myId])
+    }, [dispatch, _id, myId])
 
-    if(!opened){
+    if(!_id){
         return(
           <div>
               Выберите чат, чтобы начать переписку
